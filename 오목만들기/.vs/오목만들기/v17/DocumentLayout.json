@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Pc\\Desktop\\\uC624\uBAA9\uB9CC\uB4E4\uAE30\\",
+  "WorkspaceRootPath": "C:\\Users\\Pc\\Desktop\\C-gomoku\\\uC624\uBAA9\uB9CC\uB4E4\uAE30\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A1AC9DA2-8F6F-4116-B818-2F8F225F5FB3}|\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9\uB9CC\uB4E4\uAE30.vcxproj|C:\\Users\\Pc\\Desktop\\\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{A1AC9DA2-8F6F-4116-B818-2F8F225F5FB3}|\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9\uB9CC\uB4E4\uAE30.vcxproj|C:\\Users\\Pc\\Desktop\\C-gomoku\\\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A1AC9DA2-8F6F-4116-B818-2F8F225F5FB3}|\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9\uB9CC\uB4E4\uAE30.vcxproj|solutionrelative:\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -32,11 +32,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "\uC624\uBAA9.c",
-              "DocumentMoniker": "C:\\Users\\Pc\\Desktop\\\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9.c",
+              "DocumentMoniker": "C:\\Users\\Pc\\Desktop\\C-gomoku\\\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9.c",
               "RelativeDocumentMoniker": "\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9.c",
-              "ToolTip": "C:\\Users\\Pc\\Desktop\\\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9.c",
+              "ToolTip": "C:\\Users\\Pc\\Desktop\\C-gomoku\\\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9.c",
               "RelativeToolTip": "\uC624\uBAA9\uB9CC\uB4E4\uAE30\\\uC624\uBAA9.c",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-04-18T16:34:52.122Z",
               "EditorCaption": ""
