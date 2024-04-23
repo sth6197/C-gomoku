@@ -13,17 +13,33 @@
 #define SPACE 32
 #define ENTER 13
 #define ESC 27
+#define q 113
 
-#define BOARD_MAP_X 20
-#define BOARD_MAP_Y 20
-#define BLACK_S 1
-#define WHITE_S 2
+#define BOARD_MAP_X 20		// 오목판 가로
+#define BOARD_MAP_Y 20		// 오목판 세로
+#define BLACK_S 1			// 흑돌
+#define WHITE_S 2			// 백돌
 
-typedef struct
+typedef struct              // 좌표
 {
 	int x;
 	int y;
 }xy;
+
+void CursorView()
+{
+	CONSOLE_CURSOR_INFO cursorinfo = { 0, };
+	cursorinfo.dwSize = 1;
+	cursorinfo.bVisible = FALSE;
+	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorinfo);
+}
+void CursorView2()
+{
+	CONSOLE_CURSOR_INFO cursorinfo = { 0, };
+	cursorinfo.dwSize = 1;
+	cursorinfo.bVisible = TRUE;
+	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorinfo);
+}
 
 void gotoxy(int x, int y)
 {
@@ -31,7 +47,7 @@ void gotoxy(int x, int y)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-void Board()
+void Board()			// 오목판 함수
 {
 	int i = 0;
 	int j = 0;
@@ -44,54 +60,58 @@ void Board()
 			{
 				if (j == 0)
 				{
-					printf(" ┏ ");
+					printf(" ┌");
 				}
 				else if (j + 1 == BOARD_MAP_X)
 				{
-					printf(" ┓ ");
+					printf(" ┐");
 				}
 				else
 				{
-					printf(" ┳ ");
+					printf(" ┬");
 				}
 			}	
 			else if (i + 1 < BOARD_MAP_Y)
 			{
 				if (j == 0)
 				{
-					printf(" ┣ ");
+					printf(" ├");
 				}
 				else if (j + 1 == BOARD_MAP_X)
 				{
-					printf(" ┫ ");
+					printf(" ┤");
 				}
 				else
 				{
-					printf(" ╋ ");
+					printf(" ┼");
 				}
 			}
 			else
 			{
 				if (j == 0)
 				{
-					printf(" ┗ ");
+					printf(" └");
 				}
 				else if (j + 1 == BOARD_MAP_X)
 				{
-					printf(" ┛ ");
+					printf(" ┘");
 				}
 				else
 				{
-					printf(" ┻ ");
+					printf(" ┴");
 				}
 			}
 		}
 		printf("\n");
-
+		
 	}
+	printf("조작법 : 방향키 - 이동, 스페이스바 - 돌놓기\n");
+	printf("게임 종료 :  ESC\n");
+	printf("다시 시작: q\n\n");
+	printf("게임을 다시 시작했을 경우 q를 두 번 이상 눌러주세요.\n");
 }
 
-int search(xy st, int maps[BOARD_MAP_Y][BOARD_MAP_X], int flag, int u, int ud)
+int search(xy st, int maps[BOARD_MAP_Y][BOARD_MAP_X], int flag, int u, int ud)		// 위, 아래, 좌, 우, 대각선 판정
 {
 	if (maps[st.y][st.x] != flag)
 	{
@@ -119,18 +139,19 @@ int search(xy st, int maps[BOARD_MAP_Y][BOARD_MAP_X], int flag, int u, int ud)
 	return 1 + search(st, maps, flag, u, ud);
 }
 
-void check(xy st, int maps[BOARD_MAP_Y][BOARD_MAP_X], int turn)
+void check(xy st, int maps[BOARD_MAP_Y][BOARD_MAP_X], int turn)		// 승패 판정
 {
+	
 	int i = 0;
 	int count = 0;
 
-	for(int i = 0; i > 5; i++)
+	for(int i = 0; i < 4; i++)
 	{
-		count;
+		count = 0;
 		count += search(st, maps, turn, i, 1);
 		count += search(st, maps, turn, i, -1);
 
-		if (count == 5)
+		if (count == 6)
 		{
 			gotoxy(0, BOARD_MAP_Y);
 			if (turn == BLACK_S)
@@ -141,15 +162,14 @@ void check(xy st, int maps[BOARD_MAP_Y][BOARD_MAP_X], int turn)
 			{
 				printf("백돌");
 			}
-			printf(" 이 승리하였습니다. 게임을 종료합니다.\n");
+			printf(" 이 승리하였습니다.\n");
 			
-			_getch();
-			exit(1);
+			CursorView();	// 게임 판정 났을 때 커서 숨김
 		}
 	}
 }
 
-void SetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])
+void SetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])		// 키보드, 플레이어 턴 함수
 {
 	char input;
 	int turn = BLACK_S;
@@ -166,24 +186,24 @@ void SetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])
 			{
 			case UP: if (st.y > 0) st.y--;
 				break;
-			case DOWN: if (st.y < BOARD_MAP_Y - 2) st.y++;
+			case DOWN: if (st.y < BOARD_MAP_Y - 1) st.y++;
 				break;
 			case LEFT: if (st.x > 0) st.x--;
 				break;
-			case RIGHT: if (st.x < BOARD_MAP_X - 2) st.x++;
+			case RIGHT: if (st.x < BOARD_MAP_X - 1) st.x++;
 				break;
 			case SPACE: if (maps[st.y][st.x] == 0)
 			{
 				gotoxy(st.x * 2, st.y);
 
-				if (turn == BLACK_S)
+				if (turn == BLACK_S)		// 흑돌 턴
 				{
 					maps[st.y][st.x] = BLACK_S;
 					printf("○");
 					check(st, maps, turn);
 					turn = WHITE_S;
 				}
-				else
+				else                         // 백돌 턴
 				{
 					maps[st.y][st.x] = WHITE_S;
 					printf("●");
@@ -194,6 +214,9 @@ void SetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])
 				break;
 			case ESC: exit(1);
 						break;
+			case 113:
+				return 0;
+				break;
 			}
 			gotoxy(st.x * 2, st.y);
 		}	
@@ -201,6 +224,18 @@ void SetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])
 
 
 }
+
+void ResetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])
+{
+	for (int i = 0; i < BOARD_MAP_Y; i++)
+	{
+		for (int j = 0; j < BOARD_MAP_X; j++)
+		{
+			maps[i][j] = 0;
+		}
+	}
+}
+
 
 int main()
 {
@@ -223,7 +258,17 @@ int main()
 
 	Board();
 	SetGame(maps);
+	
+	while (1)
+	{
+		_getch(q);
 
+		system("cls");
 
+		Board();
+		SetGame(maps);
+		CursorView2();	// 다시 커서 표시
+		ResetGame(maps);	
+	}
 	return 0;
 }
