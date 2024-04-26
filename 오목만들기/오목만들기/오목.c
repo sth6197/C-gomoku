@@ -18,34 +18,34 @@ MCI_PLAY_PARMS playgomokusound;
 
 int dwID;
 
-#define UP 72			// ¹æÇâÅ° ¡è
-#define LEFT 75			// ¹æÇâÅ° ¡ç
-#define RIGHT 77		// ¹æÇâÅ° ¡æ
-#define DOWN 80			// ¹æÇâÅ° ¡é
-#define SPACE 32		// ½ºÆäÀÌ½º¹Ù
-#define ENTER 13		// ¿£ÅÍÅ°
-#define ESC 27			// ESCÅ°
-#define q 113			// qÅ°
+#define UP 72			// ë°©í–¥í‚¤ â†‘
+#define LEFT 75			// ë°©í–¥í‚¤ â†
+#define RIGHT 77		// ë°©í–¥í‚¤ â†’
+#define DOWN 80			// ë°©í–¥í‚¤ â†“
+#define SPACE 32		// ìŠ¤í˜ì´ìŠ¤ë°”
+#define ENTER 13		// ì—”í„°í‚¤
+#define ESC 27			// ESCí‚¤
+#define q 113			// qí‚¤
 
-#define BOARD_MAP_X 20		// ¿À¸ñÆÇ °¡·Î
-#define BOARD_MAP_Y 20		// ¿À¸ñÆÇ ¼¼·Î
-#define BLACK_S 1			// Èæµ¹
-#define WHITE_S 2			// ¹éµ¹
+#define BOARD_MAP_X 20		// ì˜¤ëª©íŒ ê°€ë¡œ
+#define BOARD_MAP_Y 20		// ì˜¤ëª©íŒ ì„¸ë¡œ
+#define BLACK_S 1			// í‘ëŒ
+#define WHITE_S 2			// ë°±ëŒ
 
-typedef struct              // ÁÂÇ¥ ÇÔ¼ö ±¸Á¶Ã¼
+typedef struct              // ì¢Œí‘œ í•¨ìˆ˜ êµ¬ì¡°ì²´
 {
 	int x;
 	int y;
 }xy;
 
-void CursorView()					// Ä¿¼­ ¼û±è ÇÔ¼ö
+void CursorView()					// ì»¤ì„œ ìˆ¨ê¹€ í•¨ìˆ˜
 {
 	CONSOLE_CURSOR_INFO cursorinfo = { 0, };
 	cursorinfo.dwSize = 1;
 	cursorinfo.bVisible = FALSE;
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorinfo);
 }
-void CursorView2()					// Ä¿¼­ º¸ÀÌ±â ÇÔ¼ö
+void CursorView2()					// ì»¤ì„œ ë³´ì´ê¸° í•¨ìˆ˜
 {
 	CONSOLE_CURSOR_INFO cursorinfo = { 0, };
 	cursorinfo.dwSize = 1;
@@ -63,36 +63,36 @@ void color(int color)
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 	/*
-	°ËÀº»ö 0, ÆÄ¶õ»ö 1, ÃÊ·Ï»ö 2, ¿Á»ö 3, »¡°£»ö 4, ÀÚÁÖ»ö 5, ³ë¶õ»ö 6, Èò»ö 7
-	È¸»ö 8, ¿¬ÆÄ¶û 9, ¿¬ÃÊ·Ï 10, ¿¬ÇÑ ¿Á»ö 11, ¿¬»¡ 12, ¿¬ÇÑ ÀÚÁÖ 13, ¿¬³ë¶û 14, ÁøÇÑ Èò»ö 15
+	ê²€ì€ìƒ‰ 0, íŒŒë€ìƒ‰ 1, ì´ˆë¡ìƒ‰ 2, ì˜¥ìƒ‰ 3, ë¹¨ê°„ìƒ‰ 4, ìì£¼ìƒ‰ 5, ë…¸ë€ìƒ‰ 6, í°ìƒ‰ 7
+	íšŒìƒ‰ 8, ì—°íŒŒë‘ 9, ì—°ì´ˆë¡ 10, ì—°í•œ ì˜¥ìƒ‰ 11, ì—°ë¹¨ 12, ì—°í•œ ìì£¼ 13, ì—°ë…¸ë‘ 14, ì§„í•œ í°ìƒ‰ 15
 	*/
 }
 
 void playingbgm()
 {
-	openBgm.lpstrElementName = "gomokubgm.mp3";			// ÆÄÀÏ ¿­±â
-	openBgm.lpstrDeviceType = "mpegvideo";				// mp3 Çü½Ä ÁöÁ¤
+	openBgm.lpstrElementName = "gomokubgm.mp3";			// íŒŒì¼ ì—´ê¸°
+	openBgm.lpstrDeviceType = "mpegvideo";				// mp3 í˜•ì‹ ì§€ì •
 	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE, (DWORD)(LPVOID)&openBgm);
 	dwID = openBgm.wDeviceID;
-	mciSendCommand(dwID, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&openBgm);	// ¹è°æÀ½ ¹İº¹ Àç»ı
+	mciSendCommand(dwID, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&openBgm);	// ë°°ê²½ìŒ ë°˜ë³µ ì¬ìƒ
 }
 
 void playingTaksound()
 {
-	opengomokusound.lpstrElementName = "gomokuegg.mp3";		// ÆÄÀÏ ¿­±â
-	opengomokusound.lpstrDeviceType = "mpegvideo";			// mp3 Çü½Ä ÁöÁ¤
+	opengomokusound.lpstrElementName = "gomokuegg.mp3";		// íŒŒì¼ ì—´ê¸°
+	opengomokusound.lpstrDeviceType = "mpegvideo";			// mp3 í˜•ì‹ ì§€ì •
 	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE, (DWORD)(LPVOID)&opengomokusound);
 	dwID = opengomokusound.wDeviceID;
-	mciSendCommand(dwID, MCI_PLAY, MCI_RESUME, (DWORD)(LPVOID)&opengomokusound);	// È¿°úÀ½À» ÇÑ ¹ø ¾¿¸¸ Àç»ı
+	mciSendCommand(dwID, MCI_PLAY, MCI_RESUME, (DWORD)(LPVOID)&opengomokusound);	// íš¨ê³¼ìŒì„ í•œ ë²ˆ ì”©ë§Œ ì¬ìƒ
 
 }
 
-void Board()			// ¿À¸ñÆÇ ÇÔ¼ö
+void Board()			// ì˜¤ëª©íŒ í•¨ìˆ˜
 {
 	int i = 0;
 	int j = 0;
 	
-	color(7);									// ¹İº¹¹®°ú Á¶°Ç¹®À» ÅëÇØ ¿À¸ñÆÇ ±×¸®±â
+	color(7);									// ë°˜ë³µë¬¸ê³¼ ì¡°ê±´ë¬¸ì„ í†µí•´ ì˜¤ëª©íŒ ê·¸ë¦¬ê¸°
 	for (int i = 0; i < BOARD_MAP_Y; i++)
 	{
 		for (int j = 0; j < BOARD_MAP_X; j++)
@@ -101,170 +101,170 @@ void Board()			// ¿À¸ñÆÇ ÇÔ¼ö
 			{
 				if (j == 0)
 				{
-					printf(" ¦®");
+					printf(" â”");
 				}
 				else if (j + 1 == BOARD_MAP_X)
 				{
-					printf(" ¦¯");
+					printf(" â”“");
 				}
 				else
 				{
-					printf(" ¦¨");
+					printf(" â”¬");
 				}
 			}	
 			else if (i + 1 < BOARD_MAP_Y)
 			{
 				if (j == 0)
 				{
-					printf(" ¦§");
+					printf(" â”œ");
 				}
 				else if (j + 1 == BOARD_MAP_X)
 				{
-					printf(" ¦©");
+					printf(" â”¤");
 				}
 				else
 				{
-					printf(" ¦«");
+					printf(" â”¼");
 				}
 			}
 			else
 			{
 				if (j == 0)
 				{
-					printf(" ¦±");
+					printf(" â”—");
 				}
 				else if (j + 1 == BOARD_MAP_X)
 				{
-					printf(" ¦°");
+					printf(" â”›");
 				}
 				else
 				{
-					printf(" ¦ª");
+					printf(" â”´");
 				}
 			}
 		}
 		printf("\n");
 	}
 	printf("\n");
-	printf("Á¶ÀÛ¹ı : Å°º¸µå ¹æÇâÅ° - Ä¿¼­ ÀÌµ¿, ½ºÆäÀÌ½º¹Ù - µ¹³õ±â\n");
-	printf("´Ù½Ã ½ÃÀÛ : Q\n");
-	printf("°ÔÀÓ Á¾·á : ESC\n\n");
-	printf("½ÂºÎ°¡ ³µ´Ù¸é Q¸¦ µÎ ¹ø ÀÌ»ó ´­·¯ÁÖ¼¼¿ä.\n\n");
+	printf("ì¡°ì‘ë²• : í‚¤ë³´ë“œ ë°©í–¥í‚¤ - ì»¤ì„œ ì´ë™, ìŠ¤í˜ì´ìŠ¤ë°” - ëŒë†“ê¸°\n");
+	printf("ë‹¤ì‹œ ì‹œì‘ : Q\n");
+	printf("ê²Œì„ ì¢…ë£Œ : ESC\n\n");
+	printf("ìŠ¹ë¶€ê°€ ë‚¬ë‹¤ë©´ Që¥¼ ë‘ ë²ˆ ì´ìƒ ëˆŒëŸ¬ì£¼ì„¸ìš”.\n\n");
 }
 
-int search(xy st, int maps[BOARD_MAP_Y][BOARD_MAP_X], int flag, int u, int ud)	// flag(°Ë»öÇÏ·Á´Â µ¹ »ö±ò),  u(°Ë»öÇÒ ¹æÇâ)
-{																				// ud(¹æÇâ º¯¼ö, ¾ç¼öÀÌ¸é ¿À¸¥ÂÊ ¶Ç´Â ¾Æ·¡·Î ÀÌµ¿, À½¼öÀÌ¸é ¿ŞÂÊ ¶Ç´Â À§·Î ÀÌµ¿)
-	if (maps[st.y][st.x] != flag)		// ÇØ´ç ÅÏ ÇÃ·¹ÀÌ¾îÀÇ µ¹»ö±òÀ» ±¸ºĞÇÏ°í, µ¹»ö±òÀÌ ´Ù¸£´Ù¸é °Ë»ç °è¼Ó ÁøÇà 
+int search(xy st, int maps[BOARD_MAP_Y][BOARD_MAP_X], int flag, int u, int ud)	// flag(ê²€ìƒ‰í•˜ë ¤ëŠ” ëŒ ìƒ‰ê¹”),  u(ê²€ìƒ‰í•  ë°©í–¥)
+{																				// ud(ë°©í–¥ ë³€ìˆ˜, ì–‘ìˆ˜ì´ë©´ ì˜¤ë¥¸ìª½ ë˜ëŠ” ì•„ë˜ë¡œ ì´ë™, ìŒìˆ˜ì´ë©´ ì™¼ìª½ ë˜ëŠ” ìœ„ë¡œ ì´ë™)
+	if (maps[st.y][st.x] != flag)		// í•´ë‹¹ í„´ í”Œë ˆì´ì–´ì˜ ëŒìƒ‰ê¹”ì„ êµ¬ë¶„í•˜ê³ , ëŒìƒ‰ê¹”ì´ ë‹¤ë¥´ë‹¤ë©´ ê²€ì‚¬ ê³„ì† ì§„í–‰ 
 	{
 		return 0;
 	}
-	if (u == 0)			// À§, ¾Æ·¡
+	if (u == 0)			// ìœ„, ì•„ë˜
 	{
 		st.y += ud;
 	}
-	else if (u == 1)	// ÁÂ, ¿ì
+	else if (u == 1)	// ì¢Œ, ìš°
 	{
 		st.x += ud;
 	}
-	else if (u == 2)	// ¿ŞÂÊ À§ -> ¿À¸¥ÂÊ ¾Æ·¡
+	else if (u == 2)	// ì™¼ìª½ ìœ„ -> ì˜¤ë¥¸ìª½ ì•„ë˜
 	{
 		st.x += ud;
 		st.y += ud;
 	}
-	else                // ¿À¸¥ÂÊ À§ -> ¿ŞÂÊ ¾Æ·¡
+	else                // ì˜¤ë¥¸ìª½ ìœ„ -> ì™¼ìª½ ì•„ë˜
 	{
 		st.x += ud;
 		st.y -= ud;
 	}
 
 	return 1 + search(st, maps, flag, u, ud);		
-	// ÇöÀç À§Ä¡¿¡¼­ ÁÖº¯ ¹æÇâÀ¸·Î ÇÑ Ä­¾¿ ÀÌµ¿ÇÏ¸é¼­ °°Àº »ö±ò µ¹Ã£±â -> µ¹À» Ã£À¸¸é ±× ÁöÁ¡ºÎÅÍ ´Ù½Ã ÁÖº¯ ¹æÇâÀ¸·Î µ¹Ã£±â 
-	// -> ¹İº¹ÇÏ¸é¼­ µ¹ °³¼ö ¼¼±â -> µ¹À» Ã£À¸¸é 1¾¿ ´õÇØÁÖ±â -> ¿¬¼ÓµÈ µ¹ÀÌ ¾ø°Å³ª ¿À¸ñÆÇ ³¡À» ¸¸³ª¸é ¹İº¹À» ¸ØÃß°í µ¹ °³¼ö °ª ¹İÈ¯
+	// í˜„ì¬ ìœ„ì¹˜ì—ì„œ ì£¼ë³€ ë°©í–¥ìœ¼ë¡œ í•œ ì¹¸ì”© ì´ë™í•˜ë©´ì„œ ê°™ì€ ìƒ‰ê¹” ëŒì°¾ê¸° -> ëŒì„ ì°¾ìœ¼ë©´ ê·¸ ì§€ì ë¶€í„° ë‹¤ì‹œ ì£¼ë³€ ë°©í–¥ìœ¼ë¡œ ëŒì°¾ê¸° 
+	// -> ë°˜ë³µí•˜ë©´ì„œ ëŒ ê°œìˆ˜ ì„¸ê¸° -> ëŒì„ ì°¾ìœ¼ë©´ 1ì”© ë”í•´ì£¼ê¸° -> ì—°ì†ëœ ëŒì´ ì—†ê±°ë‚˜ ì˜¤ëª©íŒ ëì„ ë§Œë‚˜ë©´ ë°˜ë³µì„ ë©ˆì¶”ê³  ëŒ ê°œìˆ˜ ê°’ ë°˜í™˜
 }
 
-void check(xy st, int maps[BOARD_MAP_Y][BOARD_MAP_X], int turn)		// ½ÂÆĞ ÆÇÁ¤, turn(ÇÃ·¹ÀÌ¾îÀÇ ÅÏ)
+void check(xy st, int maps[BOARD_MAP_Y][BOARD_MAP_X], int turn)		// ìŠ¹íŒ¨ íŒì •, turn(í”Œë ˆì´ì–´ì˜ í„´)
 {
 	int i = 0;
 	int count = 0;
 
 	for(int i = 0; i < 4; i++)						
 	{
-		count = 0;									// count º¯¼ö ÃÊ±âÈ­, ¹æÇâº° ¿¬¼ÓÀûÀÎ µ¹ °³¼ö ÀúÀå(°ÔÀÓ ½ÃÀÛ½Ã search ÇÔ¼ö°¡ µ¹¾Æ°¡¸ç ÃÊ±âÈ­ °ª¿¡ 1ÀÌ ´õÇØÁü)
-		count += search(st, maps, turn, i, 1);		// search ÇÔ¼ö È£Ãâ(µ¹À» ³õÀº À§Ä¡¿¡¼­ ÁÖº¯ µ¹À» °Ë»çÇÏ±â À§ÇØ) -> st º¯¼ö¿¡¼­ ÁÖ¾îÁø ¹æÇâÀ¸·Î µ¹ °³¼ö °Ë»ç, ¿À¸ñÆÇ ¹è¿­, ÇÃ·¹ÀÌ¾î ÅÏ,
-		count += search(st, maps, turn, i, -1);		// ¹æÇâÀ» ³ªÅ¸³»¸ç 0~3ÀÇ °ªÀ» °¡Áö´Â i º¯¼ö, °Ë»ç Áß ºó °ø°£ÀÌ³ª »ó´ë¹æÀÇ µ¹À» ¸¸³¯ ½Ã °Ë»ç Áß´Ü ¹× -1, °°Àº »ö±ò µ¹ÀÌ¸é °Ë»ç °è¼Ó ÁøÇà ¹× 1)
-													// search ÇÔ¼ö¸¦ ÅëÇØ ±¸ÇØÁø °ªÀ» count¿¡ ´õÇÏ¿© µ¹À» ³õÀº À§Ä¡¸¦ ±âÁØÀ¸·Î ÁÖº¯ÀÇ ¿¬¼ÓÀûÀÎ µ¹ °³¼ö °Ë»ç, °è»ê
-		if (count == 6)								// ³õ¿©Áø µ¹ °³¼ö¸¦ °Ë»çÇÏ°í, ÅÏÀÌ ³Ñ¾î°¡±â Àü¿¡ °ªÀ» count¿¡ ÀúÀåÇÏ¿© countÀÇ °ªÀÌ 6ÀÌ¶ó¸é ÇØ´ç ÅÏ ÇÃ·¹ÀÌ¾îÀÇ ½Â¸®
+		count = 0;									// count ë³€ìˆ˜ ì´ˆê¸°í™”, ë°©í–¥ë³„ ì—°ì†ì ì¸ ëŒ ê°œìˆ˜ ì €ì¥(ê²Œì„ ì‹œì‘ì‹œ search í•¨ìˆ˜ê°€ ëŒì•„ê°€ë©° ì´ˆê¸°í™” ê°’ì— 1ì´ ë”í•´ì§)
+		count += search(st, maps, turn, i, 1);		// search í•¨ìˆ˜ í˜¸ì¶œ(ëŒì„ ë†“ì€ ìœ„ì¹˜ì—ì„œ ì£¼ë³€ ëŒì„ ê²€ì‚¬í•˜ê¸° ìœ„í•´) -> st ë³€ìˆ˜ì—ì„œ ì£¼ì–´ì§„ ë°©í–¥ìœ¼ë¡œ ëŒ ê°œìˆ˜ ê²€ì‚¬, ì˜¤ëª©íŒ ë°°ì—´, í”Œë ˆì´ì–´ í„´,
+		count += search(st, maps, turn, i, -1);		// ë°©í–¥ì„ ë‚˜íƒ€ë‚´ë©° 0~3ì˜ ê°’ì„ ê°€ì§€ëŠ” i ë³€ìˆ˜, ê²€ì‚¬ ì¤‘ ë¹ˆ ê³µê°„ì´ë‚˜ ìƒëŒ€ë°©ì˜ ëŒì„ ë§Œë‚  ì‹œ ê²€ì‚¬ ì¤‘ë‹¨ ë° -1, ê°™ì€ ìƒ‰ê¹” ëŒì´ë©´ ê²€ì‚¬ ê³„ì† ì§„í–‰ ë° 1)
+													// search í•¨ìˆ˜ë¥¼ í†µí•´ êµ¬í•´ì§„ ê°’ì„ countì— ë”í•˜ì—¬ ëŒì„ ë†“ì€ ìœ„ì¹˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì£¼ë³€ì˜ ì—°ì†ì ì¸ ëŒ ê°œìˆ˜ ê²€ì‚¬, ê³„ì‚°
+		if (count == 6)								// ë†“ì—¬ì§„ ëŒ ê°œìˆ˜ë¥¼ ê²€ì‚¬í•˜ê³ , í„´ì´ ë„˜ì–´ê°€ê¸° ì „ì— ê°’ì„ countì— ì €ì¥í•˜ì—¬ countì˜ ê°’ì´ 6ì´ë¼ë©´ í•´ë‹¹ í„´ í”Œë ˆì´ì–´ì˜ ìŠ¹ë¦¬
 		{
 			gotoxy(0, BOARD_MAP_Y);
 			if (turn == BLACK_S)
 			{
-				printf("Èæµ¹ ½Â¸®!\a");
+				printf("í‘ëŒ ìŠ¹ë¦¬!\a");
 			}
 			else
 			{
-				printf("¹éµ¹ ½Â¸®!\a");
+				printf("ë°±ëŒ ìŠ¹ë¦¬!\a");
 			}
-			CursorView();	// °ÔÀÓ ÆÇÁ¤ ³µÀ» ¶§ Ä¿¼­ ¼û±è
+			CursorView();	// ê²Œì„ íŒì • ë‚¬ì„ ë•Œ ì»¤ì„œ ìˆ¨ê¹€
 		}
 	}
 }
 
-void SetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])		// Å°º¸µå, ÇÃ·¹ÀÌ¾î ÅÏ ÇÔ¼ö
+void SetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])		// í‚¤ë³´ë“œ, í”Œë ˆì´ì–´ í„´ í•¨ìˆ˜
 {
 	char input;
-	int turn = BLACK_S;									// Ã³À½ ½ÃÀÛ ÅÏÀº Ç×»ó Èæµ¹ÀÌ ¸ÕÀú ÇÏµµ·Ï ÇÑ´Ù.
+	int turn = BLACK_S;									// ì²˜ìŒ ì‹œì‘ í„´ì€ í•­ìƒ í‘ëŒì´ ë¨¼ì € í•˜ë„ë¡ í•œë‹¤.
 
-	xy st = { BOARD_MAP_X / 2, BOARD_MAP_Y / 2 };		// ¿À¸ñÆÇ ÀüÃ¼ °¡·Î/2, ¼¼·Î/2, ÃÊ±â µ¹³õÀ» À§Ä¡ ÁöÁ¤
+	xy st = { BOARD_MAP_X / 2, BOARD_MAP_Y / 2 };		// ì˜¤ëª©íŒ ì „ì²´ ê°€ë¡œ/2, ì„¸ë¡œ/2 ë¡œ ë‚˜ëˆˆ ìœ„ì¹˜ì— ì´ˆê¸° ëŒë†“ì„ ìœ„ì¹˜ ì§€ì •
 	
 	while (1)
 	{
-		if (_kbhit())												// Å°º¸µå ÀÔ·Â
+		if (_kbhit())												// í‚¤ë³´ë“œ ì…ë ¥
 		{
 			input = _getch();
 
 			switch (input)
 			{
-			case UP: if (st.y > 0) st.y--;							// y ÁÂÇ¥°¡ 0º¸´Ù Å¬ ¶§ ±îÁö¸¸ ¿Ã¶ó°¡µµ·Ï Á¶°Ç¹®
+			case UP: if (st.y > 0) st.y--;							// y ì¢Œí‘œê°€ 0ë³´ë‹¤ í´ ë•Œ ê¹Œì§€ë§Œ ì˜¬ë¼ê°€ë„ë¡ ì¡°ê±´ë¬¸
 				break;
-			case DOWN: if (st.y < BOARD_MAP_Y-1) st.y++;			// BOARD_MAP_YÀÇ -1 ±îÁö¸¸ ³»·Á°¡µµ·Ï Á¶°Ç¹®
+			case DOWN: if (st.y < BOARD_MAP_Y-1) st.y++;			// BOARD_MAP_Yì˜ -1 ê¹Œì§€ë§Œ ë‚´ë ¤ê°€ë„ë¡ ì¡°ê±´ë¬¸
 				break;
-			case LEFT: if (st.x > 0) st.x--;						// x ÁÂÇ¥°¡ 0º¸´Ù Å¬ ¶§ ±îÁö¸¸ ¿ŞÂÊÀ¸·Î °¡µµ·Ï Á¶°Ç¹®
+			case LEFT: if (st.x > 0) st.x--;						// x ì¢Œí‘œê°€ 0ë³´ë‹¤ í´ ë•Œ ê¹Œì§€ë§Œ ì™¼ìª½ìœ¼ë¡œ ê°€ë„ë¡ ì¡°ê±´ë¬¸
 				break;
-			case RIGHT: if (st.x < BOARD_MAP_X-1) st.x++;			// BOARD_MAP_YÀÇ -1 ±îÁö¸¸ ¿À¸¥ÂÊÀ¸·Î °¡µµ·Ï Á¶°Ç¹®
+			case RIGHT: if (st.x < BOARD_MAP_X-1) st.x++;			// BOARD_MAP_Xì˜ -1 ê¹Œì§€ë§Œ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ë„ë¡ ì¡°ê±´ë¬¸
 				break;
-			case SPACE: if (maps[st.y][st.x] == 0)					// ÇØ´ç À§Ä¡ °ªÀÌ 0ÀÌ¶ó¸é SPACE¹Ù ÀÔ·ÂÀ¸·Î ÇÃ·¹ÀÌ¾îÀÇ °ª ÀÔ·Â, µ¹ÀÌ °ãÄ£´Ù¸é ÀÔ·ÂÀÌ ¾ÈµÇµµ·Ï Ã³¸®
+			case SPACE: if (maps[st.y][st.x] == 0)					// í•´ë‹¹ ìœ„ì¹˜ ê°’ì´ 0ì´ë¼ë©´ SPACEë°” ì…ë ¥ìœ¼ë¡œ í”Œë ˆì´ì–´ì˜ ê°’ ì…ë ¥, ëŒì´ ê²¹ì¹œë‹¤ë©´ ì…ë ¥ì´ ì•ˆë˜ë„ë¡ ì²˜ë¦¬
 			{
 				gotoxy(st.x * 2, st.y);
 				
-				if (turn == BLACK_S)		// Èæµ¹ ÅÏ
+				if (turn == BLACK_S)		// í‘ëŒ í„´
 				{
-					maps[st.y][st.x] = BLACK_S;		// Èæµ¹ µ¹³õ±â ÁÂÇ¥, mapsÀÇ ¹è¿­¿¡ À§Ä¡ °ª(Èæµ¹ 1, ¹éµ¹ 2ÀÇ °ª)À» ÇÃ·¹ÀÌ¾îÀÇ µ¹ »ö±ò¿¡ ¸Â°Ô º¯°æ ¹× ÀúÀå
+					maps[st.y][st.x] = BLACK_S;		// í‘ëŒ ëŒë†“ê¸° ì¢Œí‘œ, mapsì˜ ë°°ì—´ì— ìœ„ì¹˜ ê°’(í‘ëŒ 1, ë°±ëŒ 2ì˜ ê°’)ì„ í”Œë ˆì´ì–´ì˜ ëŒ ìƒ‰ê¹”ì— ë§ê²Œ ë³€ê²½ ë° ì €ì¥
 					playingTaksound();
-					printf("¡Û");
-					check(st, maps, turn);			// µ¹À» 5°³ ³õ¾Ò´ÂÁö, °ãÄ¡´ÂÁö °Ë»ç
-					turn = WHITE_S;					// ½Â¸® ÆÇÁ¤ÀÌ ¾Æ´Ï°í ¹®Á¦¾øÀÌ µ¹À» ³õ¾Ò´Ù¸é ¹éµ¹·Î ÅÏ ³Ñ±è
+					printf("â—‹");
+					check(st, maps, turn);			// ëŒì„ 5ê°œ ë†“ì•˜ëŠ”ì§€, ê²¹ì¹˜ëŠ”ì§€ ê²€ì‚¬
+					turn = WHITE_S;					// ìŠ¹ë¦¬ íŒì •ì´ ì•„ë‹ˆê³  ë¬¸ì œì—†ì´ ëŒì„ ë†“ì•˜ë‹¤ë©´ ë°±ëŒë¡œ í„´ ë„˜ê¹€
 				}
-				else                         // ¹éµ¹ ÅÏ
+				else                         // ë°±ëŒ í„´
 				{
-					maps[st.y][st.x] = WHITE_S;		// ¹éµ¹ µ¹³õ±â ÁÂÇ¥, mapsÀÇ ¹è¿­¿¡ À§Ä¡ °ª(Èæµ¹ 1, ¹éµ¹ 2ÀÇ °ª)À» ÇÃ·¹ÀÌ¾îÀÇ µ¹ »ö±ò¿¡ ¸Â°Ô º¯°æ ¹× ÀúÀå
+					maps[st.y][st.x] = WHITE_S;		// ë°±ëŒ ëŒë†“ê¸° ì¢Œí‘œ, mapsì˜ ë°°ì—´ì— ìœ„ì¹˜ ê°’(í‘ëŒ 1, ë°±ëŒ 2ì˜ ê°’)ì„ í”Œë ˆì´ì–´ì˜ ëŒ ìƒ‰ê¹”ì— ë§ê²Œ ë³€ê²½ ë° ì €ì¥
 					playingTaksound();
-					printf("¡Ü");
-					check(st, maps, turn);			// µ¹À» 5°³ ³õ¾Ò´ÂÁö, °ãÄ¡´ÂÁö °Ë»ç
-					turn = BLACK_S;					// ½Â¸® ÆÇÁ¤ÀÌ ¾Æ´Ï°í ¹®Á¦¾øÀÌ µ¹À» ³õ¾Ò´Ù¸é Èæµ¹·Î ÅÏ ³Ñ±è
+					printf("â—");
+					check(st, maps, turn);			// ëŒì„ 5ê°œ ë†“ì•˜ëŠ”ì§€, ê²¹ì¹˜ëŠ”ì§€ ê²€ì‚¬
+					turn = BLACK_S;					// ìŠ¹ë¦¬ íŒì •ì´ ì•„ë‹ˆê³  ë¬¸ì œì—†ì´ ëŒì„ ë†“ì•˜ë‹¤ë©´ í‘ëŒë¡œ í„´ ë„˜ê¹€
 				}
 			}
 				break;
-			case ESC: exit(0);						// ESCÅ°¸¦ ´©¸£¸é ÄÜ¼ÖÃ¢ Á¾·á
+			case ESC: exit(0);						// ESCí‚¤ë¥¼ ëˆ„ë¥´ë©´ ì½˜ì†”ì°½ ì¢…ë£Œ
 						break;
 			case q:
 				return;
 			}
-			gotoxy(st.x * 2, st.y);					// ¿À¸ñÆÇ ¿­ »çÀÌÀÇ °ø¹éÀ» ÀÌµ¿ÇÏ°í Á¤È®ÇÑ Âø¼ö¸¦ À§ÇØ st.x¸¦ 2¸¦ °öÇØÁØ´Ù.
-		}											// ¸¸¾à ³ª´©±â 2¸¦ ÇÑ´Ù¸é Á¤È®ÇÑ ÁÂÇ¥·Î Ä¿¼­°¡ ÀÌµ¿ÇÏÁö ¾Ê°í ¾î±ß³ª°Ô µÇ¸ç, Âø¼ö À§Ä¡µµ Çà¿­¿¡ ¸ÂÁö ¾Ê°í ¾î±ß³ª°Ô µÈ´Ù.
+			gotoxy(st.x * 2, st.y);					// ì˜¤ëª©íŒ ì—´ ì‚¬ì´ì˜ ê³µë°±ì„ ì´ë™í•˜ê³  ì •í™•í•œ ì°©ìˆ˜ë¥¼ ìœ„í•´ st.xë¥¼ 2ë¥¼ ê³±í•´ì¤€ë‹¤.
+		}											// ë§Œì•½ ë‚˜ëˆ„ê¸° 2ë¥¼ í•œë‹¤ë©´ ì •í™•í•œ ì¢Œí‘œë¡œ ì»¤ì„œê°€ ì´ë™í•˜ì§€ ì•Šê³  ì–´ê¸‹ë‚˜ê²Œ ë˜ë©°, ì°©ìˆ˜ ìœ„ì¹˜ë„ í–‰ì—´ì— ë§ì§€ ì•Šê³  ì–´ê¸‹ë‚˜ê²Œ ëœë‹¤.
 	}
 }
 
-void ResetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])				// °ÔÀÓ Àç½ÃÀÛ½Ã º¸µå ´Ù½Ã ±×¸®±â
+void ResetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])				// ê²Œì„ ì¬ì‹œì‘ì‹œ ë³´ë“œ ë‹¤ì‹œ ê·¸ë¦¬ê¸°
 {
 	for (int i = 0; i < BOARD_MAP_Y; i++)
 	{
@@ -277,8 +277,8 @@ void ResetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])				// °ÔÀÓ Àç½ÃÀÛ½Ã º¸µå ´Ù½Ã
 
 int main()
 {
-	system("title ¿À¸ñ_ver0.1");					// °ÔÀÓ Á¦¸ñ
-	system("mode con:cols=57 lines=30");		// col °¡·Î ±æÀÌ, lines ¼¼·Î ±æÀÌ
+	system("title ì˜¤ëª©_ver0.1");					// ê²Œì„ ì œëª©
+	system("mode con:cols=57 lines=30");		// col ê°€ë¡œ ê¸¸ì´, lines ì„¸ë¡œ ê¸¸ì´
 
 	playingbgm();
 
@@ -287,14 +287,14 @@ int main()
 	color(11);
 	printf("+------------------------------------------------+\n");
 	printf("|                                                |\n");
-	printf("|                   ¿À¸ñ °ÔÀÓ                    |\n");
+	printf("|                   ì˜¤ëª© ê²Œì„                    |\n");
 	printf("|                                                |\n");
 	printf("+------------------------------------------------+\n");
 
 	color(7);
-	printf("2¸íÀÇ ÇÃ·¹ÀÌ¾î°¡ ¹ø°¥¾Æ °¡¸é¼­ ÇÃ·¹ÀÌ ÇÕ´Ï´Ù.\n");
-	printf("»ó´ëº¸´Ù ¸ÕÀú 5°³ÀÇ µ¹À» ÀÏ·Ä·Î ³õÀ¸¸é ½Â¸®ÇÕ´Ï´Ù.\n");
-	printf("½ÃÀÛÇÏ·Á¸é ¾Æ¹« Å°³ª ´­·¯ÁÖ¼¼¿ä.\n");
+	printf("2ëª…ì˜ í”Œë ˆì´ì–´ê°€ ë²ˆê°ˆì•„ ê°€ë©´ì„œ í”Œë ˆì´ í•©ë‹ˆë‹¤.\n");
+	printf("ìƒëŒ€ë³´ë‹¤ ë¨¼ì € 5ê°œì˜ ëŒì„ ì¼ë ¬ë¡œ ë†“ìœ¼ë©´ ìŠ¹ë¦¬í•©ë‹ˆë‹¤.\n");
+	printf("ì‹œì‘í•˜ë ¤ë©´ ì•„ë¬´ í‚¤ë‚˜ ëˆŒëŸ¬ì£¼ì„¸ìš”.\n");
 	
 	_getch();
 
@@ -303,7 +303,7 @@ int main()
 	Board();
 	SetGame(maps);
 
-	while (1)				// Àç½ÃÀÛ ÇÒ °æ¿ì ´Ù½Ã º¸µåÆÇ°ú °ÔÀÓ ¼³Á¤À» ºÒ·¯¿È
+	while (1)				// ì¬ì‹œì‘ í•  ê²½ìš° ë‹¤ì‹œ ë³´ë“œíŒê³¼ ê²Œì„ ì„¤ì •ì„ ë¶ˆëŸ¬ì˜´
 	{	
 		_getch();
 		
@@ -313,7 +313,7 @@ int main()
 		
 		SetGame(maps);
 		
-		CursorView2();		// ´Ù½Ã Ä¿¼­ Ç¥½Ã
+		CursorView2();		// ë‹¤ì‹œ ì»¤ì„œ í‘œì‹œ
 		
 		ResetGame(maps);
 	}
