@@ -1,3 +1,2 @@
 ﻿  오목.c
-C:\Users\Pc\Desktop\C-gomoku\오목만들기\오목만들기\오목.c(261,13): warning C4098: 'SetGame': 'void' 함수에서 값을 반환하고 있습니다.
   오목만들기.vcxproj -> C:\Users\Pc\Desktop\C-gomoku\오목만들기\Debug\오목만들기.exe

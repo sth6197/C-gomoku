@@ -27,8 +27,8 @@ int dwID;
 #define ESC 27			// ESC키
 #define q 113			// q키
 
-#define BOARD_MAP_X 19		// 오목판 가로
-#define BOARD_MAP_Y 19		// 오목판 세로
+#define BOARD_MAP_X 20		// 오목판 가로
+#define BOARD_MAP_Y 20		// 오목판 세로
 #define BLACK_S 1			// 흑돌
 #define WHITE_S 2			// 백돌
 
@@ -55,7 +55,7 @@ void CursorView2()					// 커서 보이기 함수
 
 void gotoxy(int x, int y)
 {
-	COORD pos = { x - 1, y - 1 };
+	COORD pos = { x + 1, y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
@@ -92,7 +92,7 @@ void Board()			// 오목판 함수
 	int i = 0;
 	int j = 0;
 	
-	color(7);
+	color(7);									// 반복문과 조건문을 통해 오목판 그리기
 	for (int i = 0; i < BOARD_MAP_Y; i++)
 	{
 		for (int j = 0; j < BOARD_MAP_X; j++)
@@ -145,12 +145,11 @@ void Board()			// 오목판 함수
 		}
 		printf("\n");
 	}
-	printf("\n\n");
-	printf("조작법 : 키보드 방향키 - 커서 이동, 스페이스바 - 돌놓기\n\n");
-	printf("다시 시작 : Q\n\n");
+	printf("\n");
+	printf("조작법 : 키보드 방향키 - 커서 이동, 스페이스바 - 돌놓기\n");
+	printf("다시 시작 : Q\n");
 	printf("게임 종료 : ESC\n\n");
-	printf("승부가 났다면 Q를 눌러주세요.\n\n");
-	printf("실행 후 처음 게임을 다시 시작했을 경우 Q를 두 번 이상 눌러주세요.\n");
+	printf("승부가 났다면 Q를 두 번 이상 눌러주세요.\n\n");
 }
 
 int search(xy st, int maps[BOARD_MAP_Y][BOARD_MAP_X], int flag, int u, int ud)	// flag(검색하려는 돌 색깔),  u(검색할 방향)
@@ -183,7 +182,7 @@ int search(xy st, int maps[BOARD_MAP_Y][BOARD_MAP_X], int flag, int u, int ud)	/
 	// -> 반복하면서 돌 개수 세기 -> 돌을 찾으면 1씩 더해주기 -> 연속된 돌이 없거나 오목판 끝을 만나면 반복을 멈추고 돌 개수 값 반환
 }
 
-void check(xy st, int maps[BOARD_MAP_Y][BOARD_MAP_X], int turn)		// 승패 판정, turn(플레이어의 돌 색깔)
+void check(xy st, int maps[BOARD_MAP_Y][BOARD_MAP_X], int turn)		// 승패 판정, turn(플레이어의 턴)
 {
 	int i = 0;
 	int count = 0;
@@ -213,33 +212,33 @@ void check(xy st, int maps[BOARD_MAP_Y][BOARD_MAP_X], int turn)		// 승패 판정, t
 void SetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])		// 키보드, 플레이어 턴 함수
 {
 	char input;
-	int turn = BLACK_S;
+	int turn = BLACK_S;									// 처음 시작 턴은 항상 흑돌이 먼저 하도록 한다.
 
-	xy st = { BOARD_MAP_X / 2, BOARD_MAP_Y / 2 };		// 흑돌, 백돌 문자가 2바이트 이므로 나누기 2
+	xy st = { BOARD_MAP_X / 2, BOARD_MAP_Y / 2 };		// 오목판 전체 가로/2, 세로/2, 초기 돌놓을 위치 지정
 	
 	while (1)
 	{
-		if (_kbhit())
+		if (_kbhit())												// 키보드 입력
 		{
 			input = _getch();
 
 			switch (input)
 			{
-			case UP: if (st.y > 0) st.y--;
+			case UP: if (st.y > 0) st.y--;							// y 좌표가 0보다 클 때 까지만 올라가도록 조건문
 				break;
-			case DOWN: if (st.y < BOARD_MAP_Y) st.y++;
+			case DOWN: if (st.y < BOARD_MAP_Y-1) st.y++;			// BOARD_MAP_Y의 -1 까지만 내려가도록 조건문
 				break;
-			case LEFT: if (st.x > 0) st.x--;
+			case LEFT: if (st.x > 0) st.x--;						// x 좌표가 0보다 클 때 까지만 왼쪽으로 가도록 조건문
 				break;
-			case RIGHT: if (st.x < BOARD_MAP_X) st.x++;
+			case RIGHT: if (st.x < BOARD_MAP_X-1) st.x++;			// BOARD_MAP_Y의 -1 까지만 오른쪽으로 가도록 조건문
 				break;
-			case SPACE: if (maps[st.y][st.x] == 0)
+			case SPACE: if (maps[st.y][st.x] == 0)					// 해당 위치 값이 0이라면 SPACE바 입력으로 플레이어의 값 입력, 돌이 겹친다면 입력이 안되도록 처리
 			{
 				gotoxy(st.x * 2, st.y);
 				
 				if (turn == BLACK_S)		// 흑돌 턴
 				{
-					maps[st.y][st.x] = BLACK_S;		// 흑돌 돌놓기 좌표
+					maps[st.y][st.x] = BLACK_S;		// 흑돌 돌놓기 좌표, maps의 배열에 위치 값(흑돌 1, 백돌 2의 값)을 플레이어의 돌 색깔에 맞게 변경 및 저장
 					playingTaksound();
 					printf("○");
 					check(st, maps, turn);			// 돌을 5개 놓았는지, 겹치는지 검사
@@ -247,7 +246,7 @@ void SetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])		// 키보드, 플레이어 턴 함수
 				}
 				else                         // 백돌 턴
 				{
-					maps[st.y][st.x] = WHITE_S;		// 백돌 돌놓기 좌표
+					maps[st.y][st.x] = WHITE_S;		// 백돌 돌놓기 좌표, maps의 배열에 위치 값(흑돌 1, 백돌 2의 값)을 플레이어의 돌 색깔에 맞게 변경 및 저장
 					playingTaksound();
 					printf("●");
 					check(st, maps, turn);			// 돌을 5개 놓았는지, 겹치는지 검사
@@ -255,14 +254,13 @@ void SetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])		// 키보드, 플레이어 턴 함수
 				}
 			}
 				break;
-			case ESC: exit(0);
+			case ESC: exit(0);						// ESC키를 누르면 콘솔창 종료
 						break;
-			case 113:
-				return 0;
-				break;
+			case q:
+				return;
 			}
-			gotoxy(st.x * 2, st.y);
-		}	
+			gotoxy(st.x * 2, st.y);					// 오목판 열 사이의 공백을 이동하고 정확한 착수를 위해 st.x를 2를 곱해준다.
+		}											// 만약 나누기 2를 한다면 정확한 좌표로 커서가 이동하지 않고 어긋나게 되며, 착수 위치도 행열에 맞지 않고 어긋나게 된다.
 	}
 }
 
@@ -280,7 +278,7 @@ void ResetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])				// 게임 재시작시 보드 다시
 int main()
 {
 	system("title 오목_ver0.1");					// 게임 제목
-	system("mode con:cols=55 lines=35");		// col 가로 길이, lines 세로 길이
+	system("mode con:cols=57 lines=30");		// col 가로 길이, lines 세로 길이
 
 	playingbgm();
 
@@ -310,11 +308,12 @@ int main()
 		_getch();
 		
 		system("cls");
-
+		
 		Board();
+		
 		SetGame(maps);
 		
-		CursorView2();	// 다시 커서 표시
+		CursorView2();		// 다시 커서 표시
 		
 		ResetGame(maps);
 	}
