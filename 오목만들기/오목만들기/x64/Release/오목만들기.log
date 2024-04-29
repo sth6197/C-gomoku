@@ -1,0 +1,14 @@
+﻿  오목.c
+C:\Users\Pc\Desktop\C-gomoku\오목만들기\오목만들기\오목.c(73,27): warning C4133: '=': 'char [14]'과(와) 'LPCWSTR' 사이의 형식이 호환되지 않습니다.
+C:\Users\Pc\Desktop\C-gomoku\오목만들기\오목만들기\오목.c(74,26): warning C4133: '=': 'char [10]'과(와) 'LPCWSTR' 사이의 형식이 호환되지 않습니다.
+C:\Users\Pc\Desktop\C-gomoku\오목만들기\오목만들기\오목.c(75,87): warning C4311: '형식 캐스트': 'LPVOID'에서 'DWORD'(으)로 포인터가 잘립니다.
+C:\Users\Pc\Desktop\C-gomoku\오목만들기\오목만들기\오목.c(77,77): warning C4311: '형식 캐스트': 'LPVOID'에서 'DWORD'(으)로 포인터가 잘립니다.
+C:\Users\Pc\Desktop\C-gomoku\오목만들기\오목만들기\오목.c(82,35): warning C4133: '=': 'char [14]'과(와) 'LPCWSTR' 사이의 형식이 호환되지 않습니다.
+C:\Users\Pc\Desktop\C-gomoku\오목만들기\오목만들기\오목.c(83,34): warning C4133: '=': 'char [10]'과(와) 'LPCWSTR' 사이의 형식이 호환되지 않습니다.
+C:\Users\Pc\Desktop\C-gomoku\오목만들기\오목만들기\오목.c(84,95): warning C4311: '형식 캐스트': 'LPVOID'에서 'DWORD'(으)로 포인터가 잘립니다.
+C:\Users\Pc\Desktop\C-gomoku\오목만들기\오목만들기\오목.c(86,76): warning C4311: '형식 캐스트': 'LPVOID'에서 'DWORD'(으)로 포인터가 잘립니다.
+  코드를 생성하고 있습니다.
+  Previous IPDB not found, fall back to full compilation.
+  All 15 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  코드를 생성했습니다.
+  오목만들기.vcxproj -> C:\Users\Pc\Desktop\C-gomoku\오목만들기\x64\Release\오목만들기.exe

@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -68,7 +68,7 @@ void color(int color)
 	*/
 }
 
-void playingbgm()
+void playingbgm()		// 배경음
 {
 	openBgm.lpstrElementName = "gomokubgm.mp3";			// 파일 열기
 	openBgm.lpstrDeviceType = "mpegvideo";				// mp3 형식 지정
@@ -77,14 +77,13 @@ void playingbgm()
 	mciSendCommand(dwID, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&openBgm);	// 배경음 반복 재생
 }
 
-void playingTaksound()
+void playingTaksound()	// 오목알 착수 효과음
 {
 	opengomokusound.lpstrElementName = "gomokuegg.mp3";		// 파일 열기
 	opengomokusound.lpstrDeviceType = "mpegvideo";			// mp3 형식 지정
 	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE, (DWORD)(LPVOID)&opengomokusound);
 	dwID = opengomokusound.wDeviceID;
 	mciSendCommand(dwID, MCI_PLAY, MCI_RESUME, (DWORD)(LPVOID)&opengomokusound);	// 효과음을 한 번 씩만 재생
-
 }
 
 void Board()			// 오목판 함수
@@ -92,7 +91,7 @@ void Board()			// 오목판 함수
 	int i = 0;
 	int j = 0;
 	
-	color(7);									// 반복문과 조건문을 통해 오목판 그리기
+	color(15);									// 반복문과 조건문을 통해 오목판 그리기
 	for (int i = 0; i < BOARD_MAP_Y; i++)
 	{
 		for (int j = 0; j < BOARD_MAP_X; j++)
@@ -145,7 +144,7 @@ void Board()			// 오목판 함수
 		}
 		printf("\n");
 	}
-	printf("\n");
+	printf("\n\n");
 	printf("조작법 : 키보드 방향키 - 커서 이동, 스페이스바 - 돌놓기\n");
 	printf("다시 시작 : Q\n");
 	printf("게임 종료 : ESC\n\n");
@@ -154,7 +153,7 @@ void Board()			// 오목판 함수
 
 int search(xy st, int maps[BOARD_MAP_Y][BOARD_MAP_X], int flag, int u, int ud)	// flag(검색하려는 돌 색깔),  u(검색할 방향)
 {																				// ud(방향 변수, 양수이면 오른쪽 또는 아래로 이동, 음수이면 왼쪽 또는 위로 이동)
-	if (maps[st.y][st.x] != flag)		// 해당 턴 플레이어의 돌색깔을 구분하고, 돌색깔이 다르다면 검사 계속 진행 
+	if (maps[st.y][st.x] != flag)												// 해당 턴 플레이어의 돌색깔을 구분하고, 돌색깔이 다르다면 검사 계속 진행 
 	{
 		return 0;
 	}
@@ -214,7 +213,7 @@ void SetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])		// 키보드, 플레이어 턴
 	char input;
 	int turn = BLACK_S;									// 처음 시작 턴은 항상 흑돌이 먼저 하도록 한다.
 
-	xy st = { BOARD_MAP_X / 2, BOARD_MAP_Y / 2 };		// 오목판 전체 가로/2, 세로/2 로 나눈 위치에 초기 돌놓을 위치 지정
+	xy st = { BOARD_MAP_X / 2, BOARD_MAP_Y / 2 };		// 오목판 전체 가로/2, 세로/2 로 나눈 위치 값에 초기 돌놓을 위치 지정
 	
 	while (1)
 	{
@@ -232,7 +231,7 @@ void SetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])		// 키보드, 플레이어 턴
 				break;
 			case RIGHT: if (st.x < BOARD_MAP_X-1) st.x++;			// BOARD_MAP_X의 -1 까지만 오른쪽으로 가도록 조건문
 				break;
-			case SPACE: if (maps[st.y][st.x] == 0)					// 해당 위치 값이 0이라면 SPACE바 입력으로 플레이어의 값 입력, 돌이 겹친다면 입력이 안되도록 처리
+			case SPACE: if (maps[st.y][st.x] == 0)					// 해당 위치 값이 0이라면 SPACE바 입력으로 해당 턴 플레이어의 값 입력, 돌이 겹친다면 입력이 안되도록 처리
 			{
 				gotoxy(st.x * 2, st.y);
 				
@@ -241,7 +240,7 @@ void SetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])		// 키보드, 플레이어 턴
 					maps[st.y][st.x] = BLACK_S;		// 흑돌 돌놓기 좌표, maps의 배열에 위치 값(흑돌 1, 백돌 2의 값)을 플레이어의 돌 색깔에 맞게 변경 및 저장
 					playingTaksound();
 					printf("○");
-					check(st, maps, turn);			// 돌을 5개 놓았는지, 겹치는지 검사
+					check(st, maps, turn);			// 돌을 일렬로 5개 놓았는지, 겹치는지 검사
 					turn = WHITE_S;					// 승리 판정이 아니고 문제없이 돌을 놓았다면 백돌로 턴 넘김
 				}
 				else                         // 백돌 턴
@@ -249,7 +248,7 @@ void SetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])		// 키보드, 플레이어 턴
 					maps[st.y][st.x] = WHITE_S;		// 백돌 돌놓기 좌표, maps의 배열에 위치 값(흑돌 1, 백돌 2의 값)을 플레이어의 돌 색깔에 맞게 변경 및 저장
 					playingTaksound();
 					printf("●");
-					check(st, maps, turn);			// 돌을 5개 놓았는지, 겹치는지 검사
+					check(st, maps, turn);			// 돌을 일렬로 5개 놓았는지, 겹치는지 검사
 					turn = BLACK_S;					// 승리 판정이 아니고 문제없이 돌을 놓았다면 흑돌로 턴 넘김
 				}
 			}
@@ -259,12 +258,12 @@ void SetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])		// 키보드, 플레이어 턴
 			case q:
 				return;
 			}
-			gotoxy(st.x * 2, st.y);					// 오목판 열 사이의 공백을 이동하고 정확한 착수를 위해 st.x를 2를 곱해준다.
+			gotoxy(st.x * 2, st.y);					// 오목판 열 사이의 공백을 이동하고 정확한 위치에 착수를 위해 st.x를 2를 곱해준다.
 		}											// 만약 나누기 2를 한다면 정확한 좌표로 커서가 이동하지 않고 어긋나게 되며, 착수 위치도 행열에 맞지 않고 어긋나게 된다.
 	}
 }
 
-void ResetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])				// 게임 재시작시 보드 다시 그리기
+void ResetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])	// 게임 재시작시 보드 다시 그리기
 {
 	for (int i = 0; i < BOARD_MAP_Y; i++)
 	{
@@ -289,9 +288,9 @@ int main()
 	printf("|                                                |\n");
 	printf("|                   오목 게임                    |\n");
 	printf("|                                                |\n");
-	printf("+------------------------------------------------+\n");
+	printf("+------------------------------------------------+\n\n");
 
-	color(7);
+	color(15);
 	printf("2명의 플레이어가 번갈아 가면서 플레이 합니다.\n");
 	printf("상대보다 먼저 5개의 돌을 일렬로 놓으면 승리합니다.\n");
 	printf("시작하려면 아무 키나 눌러주세요.\n");
