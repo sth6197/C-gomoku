@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <conio.h>
-#include <string.h>
 #include <mmsystem.h>
 #include <Digitalv.h>
 
@@ -91,7 +90,7 @@ void Board()			// 오목판 함수
 	int i = 0;
 	int j = 0;
 	
-	color(15);									// 반복문과 조건문을 통해 오목판 그리기
+	// 반복문과 조건문을 통해 오목판 그리기
 	for (int i = 0; i < BOARD_MAP_Y; i++)
 	{
 		for (int j = 0; j < BOARD_MAP_X; j++)
@@ -263,7 +262,7 @@ void SetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])		// 키보드, 플레이어 턴
 	}
 }
 
-void ResetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])	// 게임 재시작시 보드 다시 그리기
+void ResetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])	// 게임 재시작 시 오목판 다시 그리기
 {
 	for (int i = 0; i < BOARD_MAP_Y; i++)
 	{
