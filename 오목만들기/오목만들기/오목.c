@@ -22,7 +22,6 @@ int dwID;
 #define RIGHT 77		// 방향키 →
 #define DOWN 80			// 방향키 ↓
 #define SPACE 32		// 스페이스바
-#define ENTER 13		// 엔터키
 #define ESC 27			// ESC키
 #define q 113			// q키
 
@@ -144,7 +143,7 @@ void Board()			// 오목판 함수
 		printf("\n");
 	}
 	printf("\n\n");
-	printf("조작법 : 키보드 방향키 - 커서 이동, 스페이스바 - 돌놓기\n");
+	printf("조작법 : 방향키 - 커서 이동, 스페이스바 - 돌놓기\n");
 	printf("다시 시작 : Q\n");
 	printf("게임 종료 : ESC\n\n");
 	printf("승부가 났다면 Q를 두 번 이상 눌러주세요.\n\n");
@@ -276,7 +275,7 @@ void ResetGame(int maps[BOARD_MAP_Y][BOARD_MAP_X])	// 게임 재시작 시 오�
 int main()
 {
 	system("title 오목_ver0.1");					// 게임 제목
-	system("mode con:cols=57 lines=30");		// col 가로 길이, lines 세로 길이
+	system("mode con:cols=60 lines=30");		// col 가로 길이, lines 세로 길이
 
 	playingbgm();
 
@@ -285,14 +284,14 @@ int main()
 	color(11);
 	printf("+------------------------------------------------+\n");
 	printf("|                                                |\n");
-	printf("|                   오목 게임                    |\n");
+	printf("|                ●○ 오목 게임 ○●             |\n");
 	printf("|                                                |\n");
 	printf("+------------------------------------------------+\n\n");
 
 	color(15);
-	printf("2명의 플레이어가 번갈아 가면서 플레이 합니다.\n");
-	printf("상대보다 먼저 5개의 돌을 일렬로 놓으면 승리합니다.\n");
-	printf("시작하려면 아무 키나 눌러주세요.\n");
+	printf("○ 2명의 플레이어가 번갈아 가면서 플레이 합니다. ●\n\n");
+	printf("● 상대보다 먼저 5개의 돌을 일렬로 놓으면 승리합니다. ○\n\n");
+	printf("○ 시작하려면 아무 키나 눌러주세요. ●\n\n");
 	
 	_getch();
 
